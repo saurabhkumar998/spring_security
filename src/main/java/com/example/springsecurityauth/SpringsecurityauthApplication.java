@@ -20,6 +20,17 @@ public class SpringsecurityauthApplication {
 		SpringApplication.run(SpringsecurityauthApplication.class, args);
 	}
 
+
+
+	/**
+	 *
+	 * // making use of command line runner to initialize the user and its role when the application starts,
+	 * this is just for testing, if the database contains teh user details then we dont need to use this
+	 * @param roleRepository
+	 * @param userRepository
+	 * @param passwordEncoder
+	 * @return CommandLineRunner
+	 */
 	@Bean
 	CommandLineRunner run(RoleRepository roleRepository, UserRepository userRepository, PasswordEncoder passwordEncoder) {
 
