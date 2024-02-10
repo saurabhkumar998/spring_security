@@ -31,6 +31,8 @@ public class SpringsecurityauthApplication {
 	 * @param passwordEncoder
 	 * @return CommandLineRunner
 	 */
+
+
 	@Bean
 	CommandLineRunner run(RoleRepository roleRepository, UserRepository userRepository, PasswordEncoder passwordEncoder) {
 
@@ -38,14 +40,16 @@ public class SpringsecurityauthApplication {
 
 			if(roleRepository.findByAuthority("ADMIN").isPresent()) return;
 
-			Role adminRole = roleRepository.save(new Role("ADMIN"));
+			roleRepository.save(new Role("ADMIN"));
 			roleRepository.save(new Role("USER"));
 
-			Set<Role> roles = new HashSet<>();
-			roles.add(adminRole);
+			//Set<Role> roles = new HashSet<>();
+			//roles.add(adminRole);
 
-			ApplicationUser admin = new ApplicationUser(1, "admin", passwordEncoder.encode("password"), roles);
-			userRepository.save(admin);
+			//ApplicationUser admin = new ApplicationUser(1, "admin", passwordEncoder.encode("password"), roles);
+			//userRepository.save(admin);
 		};
 	}
+
+
 }

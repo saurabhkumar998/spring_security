@@ -17,6 +17,7 @@ public class ApplicationUser implements UserDetails {
     @Column(name = "user_id")
     private Integer userId;
 
+    @Column(unique = true)
     private String username;
     private String password;
 
@@ -94,5 +95,15 @@ public class ApplicationUser implements UserDetails {
     @Override
     public boolean isEnabled() {
         return true;
+    }
+
+    @Override
+    public String toString() {
+        return "ApplicationUser{" +
+                "userId=" + userId +
+                ", username='" + username + '\'' +
+                ", password='" + password + '\'' +
+                ", authorities=" + authorities +
+                '}';
     }
 }
