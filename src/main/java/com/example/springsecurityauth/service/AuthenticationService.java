@@ -1,11 +1,16 @@
 package com.example.springsecurityauth.service;
 
 import com.example.springsecurityauth.model.ApplicationUser;
+import com.example.springsecurityauth.model.LoginResponseDTO;
 import com.example.springsecurityauth.model.Role;
 import com.example.springsecurityauth.repository.RoleRepository;
 import com.example.springsecurityauth.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -19,12 +24,16 @@ public class AuthenticationService {
 
     @Autowired
     private UserRepository userRepository;
-
     @Autowired
     private RoleRepository roleRepository;
-
     @Autowired
     private PasswordEncoder passwordEncoder;
+
+    @Autowired
+    private AuthenticationManager authenticationManager;
+
+    @Autowired
+    private TokenService tokenService;
 
 
     public ApplicationUser registerUser(String username, String password) {
@@ -38,6 +47,25 @@ public class AuthenticationService {
 
         return userRepository.save(new ApplicationUser(0, username, encodedPassword, authorities));
     }
+
+    public LoginResponseDTO loginUser(String username, String password) {
+
+        try{
+            Authentication authentication = authenticationManager.authenticate(
+                    new UsernamePasswordAuthenticationToken(username, password)
+            );
+
+            String token = tokenService.generateJwt(authentication);
+
+            return new LoginResponseDTO(userRepository.findByUsername(username).get(), token);
+        }
+        catch (AuthenticationException e) {
+            e.printStackTrace();
+            return new LoginResponseDTO(null, "");
+        }
+
+    }
+
 
 
 
