@@ -38,6 +38,7 @@ public class SecurityConfiguration {
 
     @Bean
     public PasswordEncoder passwordEncoder() {
+        // createDelegatingPasswordEncoder by default returns a bcrypt password encoder
         return PasswordEncoderFactories.createDelegatingPasswordEncoder();
     }
 
