@@ -43,11 +43,12 @@ public class SpringsecurityauthApplication {
 			roleRepository.save(new Role("ADMIN"));
 			roleRepository.save(new Role("USER"));
 
-			//Set<Role> roles = new HashSet<>();
-			//roles.add(adminRole);
+			Role adminRole = roleRepository.findByAuthority("ADMIN").get();
+			Set<Role> roles = new HashSet<>();
+			roles.add(adminRole);
 
-			//ApplicationUser admin = new ApplicationUser(1, "admin", passwordEncoder.encode("password"), roles);
-			//userRepository.save(admin);
+			ApplicationUser admin = new ApplicationUser(1, "admin", passwordEncoder.encode("password"), roles);
+			userRepository.save(admin);
 		};
 	}
 
