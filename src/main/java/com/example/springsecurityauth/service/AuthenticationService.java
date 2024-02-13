@@ -1,12 +1,11 @@
 package com.example.springsecurityauth.service;
 
 import com.example.springsecurityauth.model.ApplicationUser;
-import com.example.springsecurityauth.model.LoginResponseDTO;
+import com.example.springsecurityauth.dto.LoginResponseDTO;
 import com.example.springsecurityauth.model.Role;
 import com.example.springsecurityauth.repository.RoleRepository;
 import com.example.springsecurityauth.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -46,6 +45,7 @@ public class AuthenticationService {
         authorities.add(userRole);
 
         return userRepository.save(new ApplicationUser(0, username, encodedPassword, authorities));
+
     }
 
     public LoginResponseDTO loginUser(String username, String password) {

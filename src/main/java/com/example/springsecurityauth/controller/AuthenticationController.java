@@ -1,15 +1,13 @@
 package com.example.springsecurityauth.controller;
 
 import com.example.springsecurityauth.model.ApplicationUser;
-import com.example.springsecurityauth.model.LoginResponseDTO;
-import com.example.springsecurityauth.model.RegistrationDTO;
+import com.example.springsecurityauth.dto.LoginResponseDTO;
+import com.example.springsecurityauth.dto.RegistrationDTO;
+import com.example.springsecurityauth.dto.RegistrationResponseDTO;
 import com.example.springsecurityauth.service.AuthenticationService;
-import com.example.springsecurityauth.service.TokenService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.AuthenticationException;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 
@@ -22,8 +20,10 @@ public class AuthenticationController {
     private AuthenticationService authenticationService;
 
     @PostMapping("/register")
-    public ApplicationUser registerUser(@RequestBody RegistrationDTO registrationDTO) {
-        return authenticationService.registerUser(registrationDTO.getUsername(), registrationDTO.getPassword());
+    public ResponseEntity<RegistrationResponseDTO> registerUser(@RequestBody RegistrationDTO registrationDTO) {
+         ApplicationUser response = authenticationService.registerUser(registrationDTO.getUsername(), registrationDTO.getPassword());
+
+        return new ResponseEntity<RegistrationResponseDTO>(new RegistrationResponseDTO(response, "User has been created successfully."), HttpStatus.CREATED);
     }
 
 

@@ -56,6 +56,7 @@ public class SecurityConfiguration {
                     auth.requestMatchers("/auth/**").permitAll();
                     auth.requestMatchers("/admin/**").hasRole("ADMIN");
                     auth.requestMatchers("/user/**").hasAnyRole("ADMIN","USER");
+                    auth.requestMatchers("/h2-console/**").permitAll();
                     auth.anyRequest().authenticated();
                 });
                 //.httpBasic(Customizer.withDefaults())  //-- this is for normal username and password based authentication
