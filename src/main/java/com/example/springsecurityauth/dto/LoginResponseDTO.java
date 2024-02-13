@@ -1,4 +1,6 @@
-package com.example.springsecurityauth.model;
+package com.example.springsecurityauth.dto;
+
+import com.example.springsecurityauth.model.ApplicationUser;
 
 public class LoginResponseDTO {
     private ApplicationUser applicationUser;

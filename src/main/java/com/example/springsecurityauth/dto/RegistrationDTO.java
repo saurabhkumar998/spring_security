@@ -1,4 +1,4 @@
-package com.example.springsecurityauth.model;
+package com.example.springsecurityauth.dto;
 
 public class RegistrationDTO {
 
